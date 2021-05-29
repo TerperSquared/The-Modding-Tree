@@ -24,5 +24,27 @@ addLayer("p", {
     hotkeys: [
         {key: "p", description: "P: Reset for prestige points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return true}
+    layerShown(){return true},
+    upgrades: {
+        11: {
+            name: "Point++",
+            description: "Add one to point gain.",
+            cost: new Decimal(1),
+        },
+        12: {
+            name: "Point*=1",
+            description: "Points are unchanged...for now",
+            cost: new Decimal(1),
+        },
+        13: {
+            name: "Base Boost",
+            description: "+1 to previous upgrade bases",
+            cost: new Decimal(1),
+        },
+    },
+    getBase() {
+        let base = new Decimal(1)
+        if (hasUpgrade("p", 13)) {base += 1}
+        return base
+    },
 })

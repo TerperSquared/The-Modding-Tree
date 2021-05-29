@@ -1,25 +1,25 @@
 let modInfo = {
-	name: "The ??? Tree",
-	id: "mymod",
-	author: "nobody",
+	name: "The Mathematical Tree",
+	id: "IAmDeathItself",
+	author: "Terper",
 	pointsName: "points",
 	discordName: "",
 	discordLink: "",
 	initialStartPoints: new Decimal (10), // Used for hard resets and new players
 	
-	offlineLimit: 1,  // In hours
+	offlineLimit: (1/30),  // In hours
 }
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Literally nothing",
+	num: "0.1",
+	name: "Something exists",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+	<h3>v0.1</h3><br>
+		- Added first layer.<br>
+		- Added (softcap)s.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -33,7 +33,8 @@ function getStartPoints(){
 
 // Determines if it should show points/sec
 function canGenPoints(){
-	return true
+	if (hasUpgrade("p", 11 )) {return true}
+	return false
 }
 
 // Calculate points/sec!
@@ -41,7 +42,9 @@ function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
-	let gain = new Decimal(1)
+	let gain = new Decimal(0)
+	if (hasUpgrade("p", 11)) {gain.add(layer.p.getBase())}
+	if (hasUpgrade("p", 12)) {gain.times(layer.p.getBase())}
 	return gain
 }
 
