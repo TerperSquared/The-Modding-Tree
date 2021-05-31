@@ -12,14 +12,26 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.1",
-	name: "Something exists",
+	num: "0.4",
+	name: "Uninflatey",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.1</h3><br>
 		- Added first layer.<br>
-		- Added (softcap)s.`
+		- Added functions.<br>
+		<h3>v0.2</h3><br>
+		- Added layer 2 skeleton.<br>
+		- Bugfixes.<br>
+		<h3>v0.3</h3><br>
+		- Continued layer 2, more stuff in layer 1.<br>
+		- Bugfixes.<br>
+		<h3>v0.4</h3><br>
+		- Uninflatey and bugfixes.<br>
+		- Content pog.<br>
+		<h3>v0.5</h3><br>
+		- Bugfixes.<br>
+		- LOTS of content pog.<br>`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -33,8 +45,7 @@ function getStartPoints(){
 
 // Determines if it should show points/sec
 function canGenPoints(){
-	if (hasUpgrade("p", 11 )) {return true}
-	return false
+	return true
 }
 
 // Calculate points/sec!
@@ -43,8 +54,9 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(0)
-	if (hasUpgrade("p", 11)) {gain.add(layer.p.getBase())}
-	if (hasUpgrade("p", 12)) {gain.times(layer.p.getBase())}
+	if (hasUpgrade("p", 11)) gain = gain.add(layers.p.getBase())
+	if (hasUpgrade("p", 12)) gain = gain.times(layers.p.getBase())
+	if (hasUpgrade("p", 32)) gain = gain.pow(upgradeEffect("p", 32))
 	return gain
 }
 
@@ -58,7 +70,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e280000000"))
+	return (player.points.gte(new Decimal('ee1.78e102')))
 }
 
 
